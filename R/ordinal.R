@@ -1,4 +1,4 @@
-#' Convert numbers to ordinal character vectors
+#' Convert numbers to ordinal character vectors (first, second, third)
 #'
 #' Adds ordinal suffixes to numbers (or a character vector of number-like
 #' words).
@@ -11,29 +11,25 @@
 #'     When `TRUE`, 1 -> "first".
 #'     When `FALSE`, 1 -> "1st".
 #'     Defaults to `TRUE`.
-#' @param negative A character of length one to append to negative numbers.
-#'     Defaults to `"negative"`.
-#'     Default can be changed by setting `options("nombre.negative")`.
+#' @param ... Further arguments passed to [cardinal()]
 #'
 #' @return A character vector of the same length as `x`
+#' @family number names
 #' @export
-#'
 #' @example examples/ordinal.R
 
 ordinal <- function(
-  x, cardinal = TRUE, negative = getOption("nombre.negative", "negative")
+  x, cardinal = TRUE, ...
 ) {
   if (!length(x)) return(character(0))
   if (!is.numeric(x) & !is.character(x))
     stop("`x` must be a numeric or character vector")
-  if (!is.character(negative)) stop("`negative` must be of type character")
-  if (length(negative) != 1)   stop("`negative` must be length one")
 
-  ordinal <- rep("", length(x))
+  ordinal <- character(length(x))
 
   if (is.numeric(x)) {
     if (cardinal) {
-      x <- cardinal(x, negative = negative)
+      x <- cardinal(x, ...)
     } else {
       x <- format(x, scientific = FALSE)
     }
@@ -71,7 +67,7 @@ ordinal <- function(
 
   ordinal[ordinal == ""] <- paste0(x[ordinal == ""], "th")
 
-  ordinal <- gsub(" ", "-", ordinal)
+  ordinal <- gsub(" ", "-", trimws(ordinal))
 
   ordinal
 }

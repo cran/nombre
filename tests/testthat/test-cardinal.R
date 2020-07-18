@@ -16,12 +16,25 @@ test_that("cardinal vector", {
     )
 })
 
+test_that("cardinal with max_n", {
+  expect_equal(nom_card(2, 10), "two")
+  expect_equal(nom_card(20, 10), "20")
+  expect_equal(nom_card(c(2, 20), 10), c("two", "20"))
+  expect_equal(nom_card(c(2, 20), -1), c("2", "20"))
+  expect_equal(nom_card(c(20, 20), c(10, 100)), c("20", "twenty"))
+})
+
 test_that("negative cardinal", {
   expect_equal(nom_card(-2), "negative two")
   expect_equal(
     nom_card(-525600), "negative five hundred twenty-five thousand six hundred"
   )
   expect_equal(nom_card(-100000000), "negative one hundred million")
+  expect_equal(nom_card(-2, negative = "minus"), "minus two")
+  expect_equal(
+    nom_card(c(-2, -2), negative = c("negative", "minus")),
+    c("negative two", "minus two")
+  )
 })
 
 test_that("decimal cardinal", {
@@ -39,18 +52,8 @@ test_that("errors", {
   expect_error(nom_card(numeric(1), negative = numeric(1)))
   expect_error(nom_card(numeric(1), negative = character(0)))
   expect_error(nom_card(numeric(1), negative = character(2)))
+  expect_error(nom_card(numeric(1), max_n = numeric(0)))
+  expect_error(nom_card(numeric(1), max_n = character(1)))
   expect_error(nom_numer(character(1)))
   expect_error(nom_numer(0.5))
-  expect_error(nom_numer(numeric(1), negative = numeric(1)))
-  expect_error(nom_numer(numeric(1), negative = character(0)))
-  expect_error(nom_numer(numeric(1), negative = character(2)))
-  with_mock(
-    requireNamespace = function(...) FALSE,
-    expect_error(nom_card(0.5)),
-    expect_error(nom_card(1.5)),
-    expect_error(nom_card(-0.5)),
-    expect_error(nom_card(-1.5)),
-    expect_error(nom_card(1 / 3)),
-    expect_error(nom_card(pi))
-  )
 })

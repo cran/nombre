@@ -5,14 +5,14 @@
 
 <!-- badges: start -->
 
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![](https://www.r-pkg.org/badges/version/nombre?color=brightgreen)](https://cran.r-project.org/package=nombre)
+[![](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![License:
-MIT](https://img.shields.io/badge/license-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
+MIT](https://img.shields.io/badge/license-MIT-blueviolet.svg)](https://cran.r-project.org/web/licenses/MIT)
 [![R build
 status](https://github.com/rossellhayes/nombre/workflows/R-CMD-check/badge.svg)](https://github.com/rossellhayes/nombre/actions)
-[![Codecov test
-coverage](https://codecov.io/gh/rossellhayes/nombre/branch/master/graph/badge.svg)](https://codecov.io/gh/rossellhayes/nombre?branch=master)
+[![](https://codecov.io/gh/rossellhayes/nombre/branch/master/graph/badge.svg)](https://codecov.io/gh/rossellhayes/nombre)
+[![Dependencies](https://tinyverse.netlify.com/badge/nombre)](https://cran.r-project.org/package=nombre)
 <!-- badges: end -->
 
 > *nombre* (French) /nɔ̃bʁ/: number  
@@ -27,9 +27,17 @@ negatives and fractions.
 
 ## Installation
 
-You can install the development version of **nombre** from GitHub with:
+You can install the released version of **nombre** from
+[CRAN](https://CRAN.R-project.org) with:
 
 ``` r
+install.packages("nombre")
+```
+
+or the development version from GitHub with:
+
+``` r
+# install.packages("remotes")
 remotes::install_github("rossellhayes/nombre")
 ```
 
@@ -63,11 +71,16 @@ nom_card(8^(1:10))
 #> [10] "one billion seventy-three million seven hundred forty-one thousand eight hundred twenty-four"
 ```
 
-**nombre** can also generate ordinals, numerators and denominators:
+**nombre** can also generate ordinals, adverbials, collectives,
+numerators and denominators:
 
 ``` r
 nom_ord(1:5)
 #> [1] "first"  "second" "third"  "fourth" "fifth"
+nom_adv(1:5)
+#> [1] "once"        "twice"       "three times" "four times"  "five times"
+nom_coll(1:5)
+#> [1] "the"       "both"      "all three" "all four"  "all five"
 nom_numer(1:5)
 #> [1] "one"   "two"   "three" "four"  "five"
 nom_denom(1:5)
@@ -89,7 +102,7 @@ nom_ord(c("n", "dozen", "umpteen", "eleventy", "one zillion"))
 #> [5] "one-zillionth"
 ```
 
-It can also handle less common numerics, like negative and fractions:
+It can also handle less common numerics, like negatives and fractions:
 
 ``` r
 nom_card(-2)
@@ -108,18 +121,15 @@ faster than options that implement their own object class, like
 bench::mark(nom_card(1:1000), as.character(english::english(1:1000)))
 #> Warning: Some expressions had a GC in every iteration; so filtering is disabled.
 #> # A tibble: 2 x 6
-#>   expression                                  min   median `itr/sec` mem_alloc
-#>   <bch:expr>                             <bch:tm> <bch:tm>     <dbl> <bch:byt>
-#> 1 nom_card(1:1000)                         7.59ms   9.05ms    103.       841KB
-#> 2 as.character(english::english(1:1000)) 124.85ms 130.35ms      7.40     389KB
+#>   expression                                 min  median `itr/sec` mem_alloc
+#>   <bch:expr>                             <bch:t> <bch:t>     <dbl> <bch:byt>
+#> 1 nom_card(1:1000)                        17.4ms  27.2ms     35.5     1.03MB
+#> 2 as.character(english::english(1:1000)) 139.6ms 160.3ms      5.58  389.29KB
 #> # ... with 1 more variable: `gc/sec` <dbl>
 ```
 
-**nombre** also does not require dependencies for most of its
-functionality. The suggested package
-[**MASS**](https://CRAN.R-project.org/package=MASS) is only required for
-handling non-integers, a situation that should be rare for most packages
-considering implementing **nombre**.
+**nombre** does not depend on any other packages, making it lightweight
+to include in your package.
 
 -----
 

@@ -26,6 +26,26 @@ test_that("denominator vector", {
   )
 })
 
+test_that("quarter", {
+  expect_equal(nom_denom(4), "quarter")
+  expect_equal(nom_denom(4, quarter = FALSE), "fourth")
+})
+
+test_that("denominator with cardinal = FALSE", {
+  expect_equal(
+    nom_denom(1:3, 2, cardinal = FALSE), c("wholes", "halves", "3rds")
+  )
+})
+
+test_that("denominator with max_n", {
+  expect_equal(nom_denom(3, 2, max_n = 10), "thirds")
+  expect_equal(nom_denom(20, 2, max_n = 10), "20ths")
+  expect_equal(nom_denom(c(3, 20), 2, max_n = 10), c("thirds", "20ths"))
+  expect_equal(
+    nom_denom(c(20, 20), 2, max_n = c(10, 100)), c("20ths", "twentieths")
+  )
+})
+
 test_that("early return", {
   expect_equal(nom_denom(numeric(0)), character(0))
 })

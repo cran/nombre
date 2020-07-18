@@ -5,22 +5,46 @@
 \alias{nom_card}
 \alias{numerator}
 \alias{nom_numer}
-\title{Convert numbers to cardinal character vectors}
+\title{Convert numbers to cardinal character vectors (one, two, three)}
 \usage{
-cardinal(x, negative = getOption("nombre.negative", "negative"))
+cardinal(
+  x,
+  max_n = getOption("nombre.max_n", Inf),
+  negative = getOption("nombre.negative", "negative"),
+  numerator = FALSE
+)
 
-nom_card(x, negative = getOption("nombre.negative", "negative"))
+nom_card(
+  x,
+  max_n = getOption("nombre.max_n", Inf),
+  negative = getOption("nombre.negative", "negative"),
+  numerator = FALSE
+)
 
-numerator(x, negative = getOption("nombre.negative", "negative"))
+numerator(x, ...)
 
-nom_numer(x, negative = getOption("nombre.negative", "negative"))
+nom_numer(x, ...)
 }
 \arguments{
 \item{x}{A numeric vector}
 
-\item{negative}{A character to append to negative numbers.
+\item{max_n}{A numeric vector.
+When the absolute value of \code{x} is greater than \code{max_n}, \code{x} remains
+numeric instead of being converted to words.
+If \code{max_n} is negative, no \code{x}s will be converted to words.
+(This can be useful when \code{max_n} is passed by another function.)
+Defaults to \code{Inf}, which converts all \code{x}s to words.
+Default can be changed by setting \code{options("nombre.max_n")}.}
+
+\item{negative}{A character vector to append to negative numbers.
 Defaults to \code{"negative"}.
 Default can be changed by setting \code{options("nombre.negative")}.}
+
+\item{numerator}{When \code{TRUE}, an error is produced if \code{x} has a decimal or
+fractional component.
+Defaults to \code{FALSE}.}
+
+\item{...}{Additional arguments of \code{numerator()} are passed to \code{cardinal()}}
 }
 \value{
 A character vector of the same length as \code{x}
@@ -38,9 +62,16 @@ nom_card(2 + 4/9)
 nom_card(-2)
 nom_card(-2, negative = "minus")
 
-nom_card(525600)
-paste("There are", nom_card(525600), "minutes in a year.")
+nom_card(5:15, max_n = 10)
 
-nom_card(3.72e13)
+paste("There are", nom_card(525600), "minutes in a year.")
 paste("There are", nom_card(3.72e13), "cells in the human body.")
 }
+\seealso{
+Other number names: 
+\code{\link{adverbial}()},
+\code{\link{collective}()},
+\code{\link{denominator}()},
+\code{\link{ordinal}()}
+}
+\concept{number names}
