@@ -39,6 +39,28 @@ test_that("negative cardinal", {
 
 test_that("decimal cardinal", {
   expect_equal(nom_card(2.9), "two and nine tenths")
+  expect_equal(nom_card(1/8), "one eighth")
+  expect_equal(nom_card(1/20), "one twentieth")
+  expect_equal(nom_card(1/1e10), "zero ten-millionths")
+  expect_equal(nom_card(1 - 1/1e10), "ten million ten-millionths")
+  expect_equal(
+    nom_card(3539/7079),
+    "three thousand five hundred thirty-nine seven-thousand-seventy-ninths"
+  )
+  expect_equal(nom_card(16/113), "sixteen hundred-thirteenths")
+})
+
+test_that("decimal cardinal with fracture ...", {
+  expect_equal(nom_card(1/2, base_10 = TRUE), "five tenths")
+  expect_equal(
+    nom_card(c(1/2, 3/4), common_denom = TRUE),
+    c("two quarters", "three quarters")
+  )
+  expect_equal(nom_card(499/1000, max_denom = 100), "one half")
+  expect_equal(
+    nom_card(1307.36, base_10 = TRUE),
+    "one thousand three hundred seven and thirty-six hundredths"
+  )
 })
 
 test_that("early return", {
