@@ -6,12 +6,12 @@
 <!-- badges: start -->
 
 [![](https://www.r-pkg.org/badges/version/nombre?color=brightgreen)](https://cran.r-project.org/package=nombre)
-[![](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![License:
 MIT](https://img.shields.io/badge/license-MIT-blueviolet.svg)](https://cran.r-project.org/web/licenses/MIT)
 [![R build
 status](https://github.com/rossellhayes/nombre/workflows/R-CMD-check/badge.svg)](https://github.com/rossellhayes/nombre/actions)
-[![](https://codecov.io/gh/rossellhayes/nombre/branch/master/graph/badge.svg)](https://codecov.io/gh/rossellhayes/nombre)
+[![](https://codecov.io/gh/rossellhayes/nombre/branch/main/graph/badge.svg)](https://app.codecov.io/gh/rossellhayes/nombre)
 [![Dependencies](https://tinyverse.netlify.com/badge/nombre)](https://cran.r-project.org/package=nombre)
 <!-- badges: end -->
 
@@ -23,7 +23,7 @@ status](https://github.com/rossellhayes/nombre/workflows/R-CMD-check/badge.svg)]
 words. You can use it to express numbers as cardinals (one, two, three)
 or ordinals (first, second, third), as well as numerators and
 denominators. **nombre** supports not just whole numbers, but also
-negatives and fractions.
+negatives, fractions, and ratios.
 
 ## Installation
 
@@ -102,19 +102,24 @@ nom_ord(c("n", "dozen", "umpteen", "eleventy", "one zillion"))
 #> [5] "one-zillionth"
 ```
 
-It can also handle less common numerics, like negatives and fractions:
+It can also handle less common numerics, like negatives, fractions, and
+ratios:
 
 ``` r
 nom_card(-2)
 #> [1] "negative two"
 nom_card(9.75)
 #> [1] "nine and three quarters"
+nom_ratio(0.25)
+#> [1] "one in four"
+nom_ratio(3)
+#> [1] "three in one"
 ```
 
-### Math with `nombre`s
+### Math with nombres
 
 **nombre** implements an S3 class that seamlessly decides when to treat
-`nombre`s like `character`s and when to treat them like `numeric`s.
+nombres like characters and when to treat them like numerics.
 
 ``` r
 x <- nom_card(25)
@@ -130,6 +135,16 @@ x == "twenty-five"
 #> [1] TRUE
 ```
 
+### Reverse it
+
+`uncardinal()` attempts to convert character vectors of cardinal number
+names to numerics.
+
+``` r
+uncardinal(c("twenty-five", "negative three", "infinity"))
+#> [1]  25  -3 Inf
+```
+
 ## Advantages 🚀
 
 **nombre** is implemented using vectorized base R and runs faster than
@@ -138,25 +153,23 @@ alternatives like
 
 ``` r
 bench::mark(as.character(nom_card(1:1000)), as.character(english::english(1:1000)))
-#> Warning: Some expressions had a GC in every iteration; so filtering is disabled.
-#> # A tibble: 2 x 6
-#>   expression                               min  median `itr/sec` mem_alloc
-#>   <bch:expr>                             <bch> <bch:t>     <dbl> <bch:byt>
-#> 1 as.character(nom_card(1:1000))          15ms  20.1ms     50.6     1.02MB
-#> 2 as.character(english::english(1:1000)) 198ms 206.4ms      4.84  389.29KB
-#> # ... with 1 more variable: `gc/sec` <dbl>
+#> # A tibble: 2 × 6
+#>   expression                                  min   median `itr/sec` mem_alloc
+#>   <bch:expr>                             <bch:tm> <bch:tm>     <dbl> <bch:byt>
+#> 1 as.character(nom_card(1:1000))           9.26ms   10.7ms     92.5     1.06MB
+#> 2 as.character(english::english(1:1000)) 132.24ms  136.9ms      7.27  414.38KB
+#> # … with 1 more variable: gc/sec <dbl>
 ```
 
------
+------------------------------------------------------------------------
 
 Hex sticker image adapted from artwork by
-@[allison\_horst](https://github.com/allisonhorst/stats-illustrations).
+@[allison_horst](https://github.com/allisonhorst/stats-illustrations).
 
-Hex sticker fonts are [Source Code
-Pro](https://github.com/adobe-fonts/source-code-pro) by
-[Adobe](https://www.adobe.com) and [Permanent
+Hex sticker fonts are [Source Sans by
+Adobe](https://github.com/adobe-fonts/source-sans) and [Permanent
 Marker](https://www.fontsquirrel.com/fonts/permanent-marker) by [Font
-Diner](https://www.fontdiner.com/).
+Diner](https://fontdiner.com/).
 
 Please note that **nombre** is released with a [Contributor Code of
 Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
