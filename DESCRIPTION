@@ -1,10 +1,10 @@
 Package: nombre
 Title: Number Names
-Version: 0.4.0
+Version: 0.4.1
 Authors@R: 
     c(person(given = "Alexander",
              family = "Rossell Hayes",
-             role = c("aut", "cre"),
+             role = c("aut", "cre", "cph"),
              email = "alexander@rossellhayes.com",
              comment = c(ORCID = "0000-0001-9412-0457")),
       person(given = "Eli",
@@ -19,17 +19,17 @@ URL: https://nombre.rossellhayes.com,
         https://github.com/rossellhayes/nombre
 BugReports: https://github.com/rossellhayes/nombre/issues
 Depends: R (>= 2.10)
-Imports: fracture (>= 0.1.2)
+Imports: fracture (>= 0.2.1)
 Suggests: testthat (>= 3.0.0)
 Encoding: UTF-8
 Language: en-US
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2021-10-25 16:43:44 UTC; alex
-Author: Alexander Rossell Hayes [aut, cre]
+Packaged: 2022-05-23 16:04:01 UTC; alex
+Author: Alexander Rossell Hayes [aut, cre, cph]
     (<https://orcid.org/0000-0001-9412-0457>),
   Eli Pousson [ctb]
 Maintainer: Alexander Rossell Hayes <alexander@rossellhayes.com>
 Repository: CRAN
-Date/Publication: 2021-10-25 18:00:02 UTC
+Date/Publication: 2022-05-23 16:20:02 UTC

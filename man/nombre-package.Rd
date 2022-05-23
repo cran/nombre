@@ -6,7 +6,7 @@
 \alias{nombre-package}
 \title{nombre: Number Names}
 \description{
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
 Converts numeric vectors to character vectors of English number names. Provides conversion to cardinals, ordinals, numerators, and denominators. Supports negative and non-integer numbers.
 }
@@ -20,7 +20,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Alexander Rossell Hayes \email{alexander@rossellhayes.com} (\href{https://orcid.org/0000-0001-9412-0457}{ORCID})
+\strong{Maintainer}: Alexander Rossell Hayes \email{alexander@rossellhayes.com} (\href{https://orcid.org/0000-0001-9412-0457}{ORCID}) [copyright holder]
 
 Other contributors:
 \itemize{
